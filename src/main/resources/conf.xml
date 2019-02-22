@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+
+
+    <!--启用二级缓存 -->
+    <!--<settings>-->
+        <!--<setting name="cacheEnabled" value="true"/>-->
+    <!--</settings>-->
+
+
+    <properties resource="jdbc.properties"></properties>
+    <typeAliases>
+        <package name="Mybatis.Master_２.Domain" />
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+                <!--<property name="driver" value="com.mysql.jdbc.Driver" />-->
+                <!--<property name="url" value="jdbc:mysql://localhost:3306/xxx" />-->
+                <!--<property name="username" value="root" />-->
+                <!--<property name="password" value="123456" />-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+
+
+            </dataSource>
+
+        </environment>
+
+
+    </environments>
+
+    <mappers>
+        <!-- 注册映射文件 -->
+        <mapper resource="userMapping.xml"/>
+        <!--<mapper resource="BlogMapper.xml"/>-->
+        <package name="Mybatis.Master_２.Dao"/>
+
+
+    </mappers>
+
+
+</configuration>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="Mybatis.Master_２.Dao.BlogMapper">
+    <!-- 当数据库的字段与pojo的字段不匹配时，要指定resultMap,下面指定resultMap
+    而不是resultType column为数据库的，property为pojo的 -->
+    <resultMap type="Blog" id="bid">
+        <id column="id" property="id" />
+        <result column="username" property="uusername" />
+        <result column="password" property="upassword" />
+    </resultMap>
+
+    <!--select,insert,update,delete四个标签定义sql语句，每一个标签对应一条接口中的抽象方法  -->
+
+
+
+    <select id="selectBlog" parameterType="Blog" resultMap="bid">
+		select *
+		from user where id = #{id}
+	</select>
+
+    <insert id="saveBlog" parameterType="Blog"  useGeneratedKeys="true" keyProperty="id">
+
+				insert into user (id,username,password) values(#{id},#{uusername},#{upassword})
+
+	</insert>
+
+    <update id="updateBlog" parameterType="Blog">
+        update user set password = #{upassword}
+        <!-- 动态sql，当想更新的内容不为空的时候，则会执行，否则将不会执行 -->
+        <if test="uusername != null">
+            ,username = #{uusername}
+        </if>
+        where id = #{id}
+    </update>
+
+
+    <delete id="deleteBlog">
+		delete from user where id = #{id}
+	</delete>
+
+
+</mapper>
